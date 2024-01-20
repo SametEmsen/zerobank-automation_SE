@@ -3,13 +3,19 @@ package com.zerobank.pages;
 import com.zerobank.utilities.Driver;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
+import java.security.SecureRandom;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class AccSumPage extends BasePage {
@@ -28,6 +34,18 @@ public class AccSumPage extends BasePage {
     public WebElement paymentDateBox;
     @FindBy(id = "alert_content")
     public WebElement successfulPaymentMessage;
+
+    @FindBy(xpath = "//a[.='Find Transactions']")
+    public WebElement findTransTab;
+
+    @FindBy(css = "[name=\"fromDate\"]")
+    public WebElement fromDate;
+    @FindBy(css = "[name=\"toDate\"]")
+    public WebElement toDate;
+    @FindBy(xpath = "//button[.='Find']")
+    public WebElement findBtn;
+    @FindBy(xpath = "//div[@id=\"filtered_transactions_for_account\"]//td[1]")
+    public List<WebElement> datesResult;
 
     public void verifyFirstSelected(String ddValue) {
         Select select = new Select(accountDropdown);
@@ -55,8 +73,42 @@ public class AccSumPage extends BasePage {
             return true;
         } else if (paymentDateBox.getAttribute("validationMessage").equals("Please fill out this field.")) {
             return true;
-        }else return false;
+        } else return false;
     }
 
+    public void clickLink(String linkName) {
+        Driver.get().findElement(By.xpath("(//a[.='" + linkName + "'])[1]")).click();
+    }
 
+    public void navigateToFindTransTab() {
+        findTransTab.click();
+    }
+
+    public void setDateRange(String firstDate, String lastDate) {
+        fromDate.sendKeys(firstDate);
+        toDate.sendKeys(lastDate);
+        findBtn.click();
+    }
+
+    public void verifyResultDatesInRange(String firstDate, String lastDate) {
+        try {
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+            Date fDate=sdf.parse(firstDate);
+            Date lDate=sdf.parse(lastDate);
+
+            for (int i = 0; i < datesResult.size(); i++) {
+                if (sdf.parse(datesResult.get(i).getText()).equals(fDate)||sdf.parse(datesResult.get(i).getText()).after(fDate)){
+                    Assert.assertTrue(true);
+                } else if (sdf.parse(datesResult.get(i).getText()).equals(lDate) || sdf.parse(datesResult.get(i).getText()).before(lDate)) {
+                    Assert.assertTrue(true);
+                }else{
+                    Assert.fail();
+                }
+            }
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
 }

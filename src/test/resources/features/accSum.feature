@@ -47,7 +47,7 @@ Feature: Account option features
       | Amount | Date       | Description |
       | 500    | 11-12-2012 | tax         |
 
-  @wip
+
   Scenario Outline: Pay Bills page negative test
     When The user navigates to "Online Banking" and "Pay Bills"
     Then The user should be able to see "Pay Bills" page
@@ -57,4 +57,5 @@ Feature: Account option features
       | Amount | Date | Description |
       |        | Date | Description |
       | Amount |      | Description |
+
 
