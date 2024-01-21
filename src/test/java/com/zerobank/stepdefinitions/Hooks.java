@@ -26,7 +26,7 @@ public class Hooks {
         }
 
         BrowserUtils.waitFor(2);
-        Driver.closeDriver();
+       // Driver.closeDriver();
     }
 
     @Before(value = "@database", order = 1)      // normal testten önce çalışmasını beklediğim methodu çalıştırır

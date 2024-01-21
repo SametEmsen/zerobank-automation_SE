@@ -36,14 +36,7 @@ public class AccSumPage extends BasePage {
     @FindBy(xpath = "//a[.='Find Transactions']")
     public WebElement findTransTab;
 
-    @FindBy(css = "[name=\"fromDate\"]")
-    public WebElement fromDate;
-    @FindBy(css = "[name=\"toDate\"]")
-    public WebElement toDate;
-    @FindBy(xpath = "//button[.='Find']")
-    public WebElement findBtn;
-    @FindBy(xpath = "//div[@id=\"filtered_transactions_for_account\"]//td[1]")
-    public List<WebElement> datesResult;
+
 
     public void verifyFirstSelected(String ddValue) {
         Select select = new Select(accountDropdown);
@@ -78,63 +71,9 @@ public class AccSumPage extends BasePage {
         Driver.get().findElement(By.xpath("(//a[.='" + linkName + "'])[1]")).click();
     }
 
-    public void navigateToFindTransTab() {
-        findTransTab.click();
+    public void navigateTuSubmenuTabs(String submenuTab){
+        Driver.get().findElement(By.xpath("//a[.='"+submenuTab+"']")).click();
     }
 
-    public void setDateRange(String firstDate, String lastDate) {
-        fromDate.sendKeys(firstDate);
-        toDate.sendKeys(lastDate);
-        findBtn.click();
-    }
 
-    public void verifyResultDatesInRange(String firstDate, String lastDate) {
-        try {
-            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-            Date fDate=sdf.parse(firstDate);
-            Date lDate=sdf.parse(lastDate);
-
-            //webelement olan stingli alır date objesine çevirerek aralıkta mı yada eşit mi diye kontol eder
-            for (int i = 0; i < datesResult.size(); i++) {
-                if (sdf.parse(datesResult.get(i).getText()).equals(fDate) || sdf.parse(datesResult.get(i).getText()).after(fDate)){
-                    Assert.assertTrue(true);
-                } else if (sdf.parse(datesResult.get(i).getText()).equals(lDate) || sdf.parse(datesResult.get(i).getText()).before(lDate)) {
-                    Assert.assertTrue(true);
-                }else{
-                    Assert.fail();
-                }
-            }
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void verifyIsItMostRecentDate(String lastDate){
-        try {
-            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-
-            // date için list oluşturur
-            List<Date> dateList = new ArrayList<>();
-            // webElement içinden tek tek StringDate text leri alıp date objesine çevirir ve dateList e atar
-            for (String dateString : BrowserUtils.getElementsText(datesResult)) {
-                Date date=sdf.parse(dateString);
-                dateList.add(date);
-            }
-            //datelist içindekileri en yakından uzağa doğru sıralar
-            dateList.sort(Collections.reverseOrder());
-
-            //webElement den alınanlarla çevirilenlerin aynı olup olmadığını kontrol eder
-            for (int i = 0; i < datesResult.size(); i++) {
-                if (dateList.get(i).equals(sdf.parse(datesResult.get(i).getText()))){
-                    Assert.assertTrue(true);
-                }else{
-                    Assert.fail();
-                }
-            }
-
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 }
