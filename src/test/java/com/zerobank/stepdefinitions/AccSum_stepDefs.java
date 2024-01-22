@@ -178,7 +178,7 @@ public class AccSum_stepDefs {
     }
 
     /**
-     * this method needs to comment out one hooks method (Driver.get().manage().window.....)
+     * this method needs to comment out one Driver class method (Driver.get().manage().window.....)
      */
     @Then("The user should be able to see error message is displayed")
     public void the_user_should_be_able_to_see_error_message_is_displayed() {
