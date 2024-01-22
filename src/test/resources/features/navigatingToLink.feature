@@ -1,3 +1,4 @@
+@regression
 Feature:Navigating to specific accounts in Accounts Summary
 
   Background:

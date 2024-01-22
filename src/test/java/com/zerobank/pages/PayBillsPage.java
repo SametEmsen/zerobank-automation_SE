@@ -3,6 +3,7 @@ package com.zerobank.pages;
 import com.zerobank.utilities.Driver;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -51,4 +52,16 @@ public class PayBillsPage extends BasePage {
             Assert.fail();
         }
     }
+    public boolean isAlertPresent()
+    {
+        try
+        {
+            Driver.get().switchTo().alert();
+            return true;
+        }   // try
+        catch (NoAlertPresentException Ex)
+        {
+            return false;
+        }   // catch
+    }   // isAlertPresent()
 }

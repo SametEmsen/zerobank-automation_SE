@@ -1,7 +1,6 @@
 package com.zerobank.stepdefinitions;
 
 
-
 import com.zerobank.utilities.BrowserUtils;
 import com.zerobank.utilities.Driver;
 import io.cucumber.java.After;
@@ -20,13 +19,13 @@ public class Hooks {
 
     @After
     public void TearDown(Scenario scenario) {
-        if (scenario.isFailed()){
+        if (scenario.isFailed()) {
             final byte[] screenshot = ((TakesScreenshot) Driver.get()).getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshot,"image/png","screenshot");
+            scenario.attach(screenshot, "image/png", "screenshot");
         }
 
         BrowserUtils.waitFor(2);
-       Driver.closeDriver();
+        Driver.closeDriver();
     }
 
     @Before(value = "@database", order = 1)      // normal testten önce çalışmasını beklediğim methodu çalıştırır

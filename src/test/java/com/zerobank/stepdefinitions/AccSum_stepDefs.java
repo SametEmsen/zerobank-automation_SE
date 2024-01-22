@@ -139,26 +139,36 @@ public class AccSum_stepDefs {
 
     @Then("The user should be able to see following currencies are available")
     public void the_user_should_be_able_to_see_following_currencies_are_available(List<String> currencies) {
-//        List<String> currenciesTexts = new ArrayList<>();
-//        for (int i = 0; i < BrowserUtils.getElementsText(payBillsPage.getCurrencies()).size(); i++) {
-//            currenciesTexts.add(currenciesTexts.get(i).trim());
-//        }
-//        List<String> currTrimed = new ArrayList<>();
+/**
+ * it works
+ */
 //        for (int i = 0; i < currencies.size(); i++) {
-//            currTrimed.add(currencies.get(i).trim());
-//        }
-//        if (currenciesTexts.containsAll(currTrimed)) {
+//            Assert.assertTrue(BrowserUtils.getElementsText(payBillsPage.getCurrencies()).contains(currencies.get(i)));
+//            }
+
+        List<String> elementsText = BrowserUtils.getElementsText(payBillsPage.getCurrencies());
+        System.out.println("elementsText = " + elementsText);
+        System.out.println("currencies = " + currencies);
+/**
+ * it doesn't works
+ */
+//        if (elementsText.containsAll(currencies)){
 //            Assert.assertTrue(true);
+//        }else{
+//            Assert.fail();
 //        }
-//        Assert.fail();
+        /**
+         * it works
+         */
+        Assert.assertTrue(elementsText.containsAll(currencies));
 
+/**
+ * it works
+ */
+//        for (String currency : currencies) {
+//            Assert.assertTrue(elementsText.contains(currency));
+//        }
 
-//        for (int i = 0; i < currencies.size(); i++) {
-//            if (currenciesTexts.contains(currencies.get(i))){
-//                Assert.assertTrue(true);
-//            }Assert.fail();
-
-        Assert.assertEquals(currencies, BrowserUtils.getElementsText(payBillsPage.getCurrencies()));
 
     }
 
@@ -169,7 +179,9 @@ public class AccSum_stepDefs {
 
     @Then("The user should be able to see error message is displayed")
     public void the_user_should_be_able_to_see_error_message_is_displayed() {
-        payBillsPage.verifyAlertIsDisplayed();
+        //payBillsPage.verifyAlertIsDisplayed();
+        Assert.assertTrue(payBillsPage.isAlertPresent());
+
     }
 }
 
