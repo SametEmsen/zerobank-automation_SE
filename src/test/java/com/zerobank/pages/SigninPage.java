@@ -8,15 +8,15 @@ import org.openqa.selenium.support.FindBy;
 
 public class SigninPage extends BasePage{
     @FindBy(id = "user_login")
-    public WebElement l_user_loginBox;
+    private WebElement l_user_loginBox;
     @FindBy(id = "user_password")
-    public WebElement l_user_passwordBox;
+    private WebElement l_user_passwordBox;
 
     @FindBy(css = "[value=\"Sign in\"]")
-    public WebElement l_signinBtn;
+    private WebElement l_signinBtn;
 
     @FindBy(css = "[class=\"alert alert-error\"]")
-    public WebElement alertMessage;
+    private WebElement alertMessage;
 
     public void signIn(){
         l_user_loginBox.sendKeys(ConfigurationReader.get("userName"));
@@ -29,7 +29,7 @@ public class SigninPage extends BasePage{
         l_user_loginBox.sendKeys(userName);
         l_user_passwordBox.sendKeys(passWord);
         l_signinBtn.click();
-        //Driver.get().navigate().back();    // comment-out for nagative login test
+        //Driver.get().navigate().back();    // comment-out for negative login test
     }
     public void verifyAlertMessageDisplay(){
         Assert.assertTrue(alertMessage.isDisplayed());

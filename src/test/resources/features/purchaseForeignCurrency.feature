@@ -7,7 +7,7 @@ Feature: Purchase Foreign Currency
     When The user navigates to "Online Banking" and "Pay Bills"
     Given The user accesses the "Purchase Foreign Currency" tab
 
-  @wip
+
   Scenario: Available currencies
     Then The user should be able to see following currencies are available
       | Australia (dollar)    |

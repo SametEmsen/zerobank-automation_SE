@@ -13,7 +13,7 @@ public abstract class BasePage {
     }
 
     @FindBy(id = "signin_button")
-    public WebElement signin_button;
+    private WebElement signin_button;
 
 
 

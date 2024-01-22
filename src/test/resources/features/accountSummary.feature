@@ -47,15 +47,15 @@ Feature: Account option features
       | Amount | Date       | Description |
       | 500    | 11-12-2012 | tax         |
 
-
+@wip
   Scenario Outline: Pay Bills page negative test
     When The user navigates to "Online Banking" and "Pay Bills"
     Then The user should be able to see "Pay Bills" page
     When The user fills "<Amount>", "<Date>", "<Description>"
     Then The user should see the alert message
     Examples:
-      | Amount | Date | Description |
-      |        | Date | Description |
-      | Amount |      | Description |
+      | Amount | Date       | Description |
+      |        | 11-12-2012 | Description |
+      | 500    |            | Description |
 
 
